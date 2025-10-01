@@ -29,10 +29,8 @@ android {
 
     signingConfigs {
         create("release") {
-            val keystorePath = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PATH")
-                ?: error("Keystore path not set!")
-
-            storeFile = File(keystorePath) // مسیر کامل فایل keystore به عنوان File
+            // مسیر فایل keystore که در Script Step دانلود شد
+            storeFile = File("/bitrise/keystore/my-release-key.jks")
             storePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
                 ?: error("Keystore password not set!")
             keyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
