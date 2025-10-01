@@ -59,19 +59,6 @@ android {
     }
 }
 
-dependencies {
-    implementation(files("libs/armeabi_v7a_release.jar"))
-    implementation(files("libs/arm64_v8a_release.jar"))
-    implementation(files("libs/x86_64_release.jar"))
-
-    implementation("com.android.tools.lint:lint-checks:31.9.1")
-    implementation("com.android.tools.external.org-jetbrains:uast:31.9.1") {
-        exclude(group = "org.jetbrains", module = "annotations")
-    }
-    implementation("com.android.tools.external.com-intellij:intellij-core:31.9.1") {
-        exclude(group = "org.jetbrains", module = "annotations")
-    }
-}
 
 flutter {
     source = "../.."
