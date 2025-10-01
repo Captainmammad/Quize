@@ -29,13 +29,10 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = File("my-release-key.jks") // مسیر فایل keystore داخل پروژه
+            storeFile =  System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL")
             keyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
-                ?: error("Key alias env not set!")
             storePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
-                ?: error("Keystore password env not set!")
             keyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
-                ?: error("Key password env not set!")
         }
     }
 
