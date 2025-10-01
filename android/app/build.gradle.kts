@@ -6,16 +6,6 @@ plugins {
 
 import java.io.File
 
-// دریافت متغیرهای محیطی Bitrise
-val keystorePath = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PATH")
-    ?: error("Keystore path env not set!")
-val keystoreAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
-    ?: error("Key alias env not set!")
-val keystorePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
-    ?: error("Keystore password env not set!")
-val keyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
-    ?: error("Key password env not set!")
-
 android {
     namespace = "com.mho.quize"
     compileSdk = flutter.compileSdkVersion
@@ -37,9 +27,18 @@ android {
         versionName = flutter.versionName
     }
 
+    // گرفتن متغیرهای Bitrise
+    val keystoreFile = file("app/my-release-key.jks") // مسیر فایل keystore داخل پروژه
+    val keystoreAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+        ?: error("Key alias env not set!")
+    val keystorePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+        ?: error("Keystore password env not set!")
+    val keyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+        ?: error("Key password env not set!")
+
     signingConfigs {
         create("release") {
-            storeFile = File(keystorePath)
+            storeFile = keystoreFile
             keyAlias = keystoreAlias
             storePassword = keystorePassword
             keyPassword = keyPassword
