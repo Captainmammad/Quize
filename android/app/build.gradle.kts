@@ -4,6 +4,18 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+import java.io.File
+
+// دریافت متغیرهای محیطی Bitrise
+val keystorePath = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PATH")
+    ?: error("Keystore path env not set!")
+val keystoreAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+    ?: error("Key alias env not set!")
+val keystorePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+    ?: error("Keystore password env not set!")
+val keyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+    ?: error("Key password env not set!")
+
 android {
     namespace = "com.mho.quize"
     compileSdk = flutter.compileSdkVersion
@@ -25,15 +37,14 @@ android {
         versionName = flutter.versionName
     }
 
-  signingConfigs {
-    create("release") {
-        storeFile = file(System.getenv("BITRISEIO_ANDROID_KEYSTORE_PATH"))
-        keyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
-        keyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
-        storePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+    signingConfigs {
+        create("release") {
+            storeFile = File(keystorePath)
+            keyAlias = keystoreAlias
+            storePassword = keystorePassword
+            keyPassword = keyPassword
+        }
     }
-}
-
 
     buildTypes {
         getByName("release") {
