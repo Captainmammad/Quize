@@ -27,21 +27,15 @@ android {
         versionName = flutter.versionName
     }
 
-    // گرفتن متغیرهای Bitrise
-    val keystoreFile = file("app/my-release-key.jks") // مسیر فایل keystore داخل پروژه
-    val keystoreAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
-        ?: error("Key alias env not set!")
-    val keystorePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
-        ?: error("Keystore password env not set!")
-    val keyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
-        ?: error("Key password env not set!")
-
     signingConfigs {
         create("release") {
-            storeFile = keystoreFile
-            keyAlias = keystoreAlias
-            storePassword = keystorePassword
-            keyPassword = keyPassword
+            storeFile = File("my-release-key.jks") // مسیر فایل keystore داخل پروژه
+            keyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+                ?: error("Key alias env not set!")
+            storePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+                ?: error("Keystore password env not set!")
+            keyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+                ?: error("Key password env not set!")
         }
     }
 
