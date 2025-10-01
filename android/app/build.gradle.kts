@@ -25,16 +25,14 @@ android {
         versionName = flutter.versionName
     }
 
-    signingConfigs {
-        create("release") {
-            // مسیر فایل keystore روی Bitrise
-            storeFile = file(System.getenv("BITRISEIO_ANDROID_KEYSTORE_PATH"))
-            // اطلاعات کدساینینگ از Bitrise Code Signing
-            keyAlias = System.getenv("KEY_ALIAS")
-            keyPassword = System.getenv("PRIVATE_KEY_PASSWORD")
-            storePassword = System.getenv("KEYSTORE_PASSWORD")
-        }
+   signingConfigs {
+    create("release") {
+        storeFile = file(System.getenv("BITRISEIO_ANDROID_KEYSTORE_PATH"))  // مسیر محلی فایل keystore روی ماشین build
+        keyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+        keyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+        storePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
     }
+}
 
     buildTypes {
         getByName("release") {
