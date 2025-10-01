@@ -29,10 +29,16 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile =  System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL")
-            keyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+            val keystorePath = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PATH")
+                ?: error("Keystore path not set!")
+
+            storeFile = File(keystorePath) // مسیر کامل فایل keystore به عنوان File
             storePassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+                ?: error("Keystore password not set!")
+            keyAlias = System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+                ?: error("Key alias not set!")
             keyPassword = System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+                ?: error("Key password not set!")
         }
     }
 
