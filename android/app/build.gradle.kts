@@ -12,8 +12,7 @@ android {
 
     signingConfigs {
         create("release") {
-            // مسیر keystore نسبت به app/build.gradle.kts
-            storeFile = file("../app/my-release-key.jks")
+            storeFile = file("my-release-key.jks")
             storePassword = "@Mho1389"
             keyAlias = "my-key-alias"
             keyPassword = "@Mho1389"
@@ -23,12 +22,6 @@ android {
     buildTypes {
         getByName("release") {
             signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = false
-            isShrinkResources = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
         getByName("debug") {
             signingConfig = signingConfigs.getByName("release") // اگه میخوای دیباگ هم با همون keystore باشه
