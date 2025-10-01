@@ -27,10 +27,12 @@ android {
 
     signingConfigs {
         create("release") {
-            keyAlias = "my-key-alias"                       // <--- اینجا Key Alias
-            keyPassword = "@Mho1389"                        // <--- اینجا Private Key Password
-            storeFile = file("my-release-key.jks")          // <--- مسیر فایل keystore شما
-            storePassword = "کی استور پسورد"               // <--- اینجا Keystore Password
+            // مسیر فایل keystore روی Bitrise
+            storeFile = file(System.getenv("BITRISEIO_ANDROID_KEYSTORE_PATH"))
+            // اطلاعات کدساینینگ از Bitrise Code Signing
+            keyAlias = System.getenv("KEY_ALIAS")
+            keyPassword = System.getenv("PRIVATE_KEY_PASSWORD")
+            storePassword = System.getenv("KEYSTORE_PASSWORD")
         }
     }
 
